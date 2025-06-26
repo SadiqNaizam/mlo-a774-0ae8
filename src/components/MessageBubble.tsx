@@ -33,7 +33,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
   const bubbleAlignment = isOutgoing ? 'justify-end' : 'justify-start';
   const bubbleStyles = isOutgoing
     ? 'bg-primary text-primary-foreground'
-    : 'bg-muted text-foreground';
+    : 'bg-card text-card-foreground';
 
   return (
     <div className={cn('flex w-full mb-2', bubbleAlignment)}>
@@ -45,7 +45,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
       >
         <p className="text-sm break-words pr-16">{text}</p>
         <div className="absolute bottom-1 right-2 flex items-center space-x-1">
-          <span className="text-xs text-inherit opacity-70">{timestamp}</span>
+          <span className="text-xs text-muted-foreground">{timestamp}</span>
           {isOutgoing && <ReadReceipt status={status} />}
         </div>
       </div>
