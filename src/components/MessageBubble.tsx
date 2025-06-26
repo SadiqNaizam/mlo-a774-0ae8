@@ -17,7 +17,7 @@ const ReadReceipt: React.FC<{ status: MessageBubbleProps['status'] }> = ({ statu
     return <CheckCheck size={16} className="text-muted-foreground" />;
   }
   if (status === 'read') {
-    return <CheckCheck size={16} className="text-blue-500" />;
+    return <CheckCheck size={16} className="text-accent" />;
   }
   return null;
 };
@@ -32,8 +32,8 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
 
   const bubbleAlignment = isOutgoing ? 'justify-end' : 'justify-start';
   const bubbleStyles = isOutgoing
-    ? 'bg-green-100 dark:bg-green-900 text-gray-800 dark:text-gray-50'
-    : 'bg-white dark:bg-slate-700 text-gray-800 dark:text-gray-50';
+    ? 'bg-primary text-primary-foreground'
+    : 'bg-muted text-foreground';
 
   return (
     <div className={cn('flex w-full mb-2', bubbleAlignment)}>
@@ -45,7 +45,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
       >
         <p className="text-sm break-words pr-16">{text}</p>
         <div className="absolute bottom-1 right-2 flex items-center space-x-1">
-          <span className="text-xs text-muted-foreground">{timestamp}</span>
+          <span className="text-xs text-inherit opacity-70">{timestamp}</span>
           {isOutgoing && <ReadReceipt status={status} />}
         </div>
       </div>
