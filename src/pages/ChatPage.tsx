@@ -60,7 +60,7 @@ const ChatPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-800">
+    <div className="flex flex-col h-screen bg-secondary">
       <ChatHeader
         recipientName="Jane Doe"
         recipientAvatarUrl="https://i.pravatar.cc/150?u=jane_doe"
@@ -79,7 +79,7 @@ const ChatPage = () => {
                 isOutgoing={msg.isOutgoing}
                 status={msg.status}
               />
-            ))}
+            ))}\
           </div>
         </ScrollArea>
       </main>
