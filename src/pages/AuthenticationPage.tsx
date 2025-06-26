@@ -52,7 +52,7 @@ const AuthenticationPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-secondary p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-muted p-4">
       <div className="flex items-center gap-2 mb-6">
         <MessageCircle className="h-8 w-8 text-primary" />
         <h1 className="text-3xl font-bold">WhatsApp Lite</h1>
@@ -110,13 +110,13 @@ const AuthenticationPage = () => {
             </CardContent>
             <CardFooter className="flex flex-col gap-4">
               <Button type="submit" className="w-full">Verify & Login</Button>
-              <Button variant="link" size="sm" onClick={() => setIsOtpSent(false)}>
+              <Button variant="link" size="sm" onClick={() => setIsOtpSent(false)}>\
                 Change phone number
               </Button>
             </CardFooter>
           </form>
         </Card>
-      )}
+      )}\
     </div>
   );
 };
