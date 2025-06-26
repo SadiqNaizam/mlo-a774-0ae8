@@ -26,12 +26,12 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-secondary dark:bg-background">
+    <div className="flex flex-col h-screen bg-gray-50 dark:bg-black">
       {/* The Header component for this page only shows the title */}
       <Header page="settings" />
 
       {/* We add a dedicated back button for better UX */}
-      <div className="p-3 border-b border-border">
+      <div className="p-3 border-b border-gray-200 dark:border-gray-800">
         <Button variant="ghost" size="sm" onClick={() => navigate('/chat-list')}>
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Chats
@@ -70,26 +70,26 @@ const SettingsPage = () => {
 
         {/* Action List Section */}
         <section className="py-6 space-y-2">
-          <button className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-muted transition-colors">
+          <button className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
             <div className="flex items-center gap-4">
-              <Shield className="h-5 w-5 text-muted-foreground" />
-              <span className="text-foreground">Privacy & Security</span>
+              <Shield className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+              <span className="text-gray-800 dark:text-gray-200">Privacy & Security</span>
             </div>
-            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+            <ChevronRight className="h-5 w-5 text-gray-400" />
           </button>
           
-          <button className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-muted transition-colors">
+          <button className="flex items-center justify-between w-full p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
             <div className="flex items-center gap-4">
-              <HelpCircle className="h-5 w-5 text-muted-foreground" />
-              <span className="text-foreground">Help & Support</span>
+              <HelpCircle className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+              <span className="text-gray-800 dark:text-gray-200">Help & Support</span>
             </div>
-            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+            <ChevronRight className="h-5 w-5 text-gray-400" />
           </button>
 
           <Separator className="my-2" />
           
           <Link to="/" className="w-full">
-            <div className="flex items-center justify-between w-full p-3 rounded-lg text-destructive hover:bg-destructive/10 transition-colors">
+            <div className="flex items-center justify-between w-full p-3 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
                 <div className="flex items-center gap-4">
                     <LogOut className="h-5 w-5" />
                     <span>Logout</span>
@@ -100,7 +100,7 @@ const SettingsPage = () => {
       </main>
 
       {/* Footer */}
-      <footer className="text-center p-4 text-xs text-muted-foreground border-t border-border">
+      <footer className="text-center p-4 text-xs text-gray-400 border-t border-gray-200 dark:border-gray-800">
         WhatsApp Lite Clone v1.0.0
       </footer>
     </div>
