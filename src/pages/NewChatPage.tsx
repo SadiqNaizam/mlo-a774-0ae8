@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 // Placeholder data for user's contacts
 const contacts = [
@@ -72,13 +73,14 @@ const NewChatPage = () => {
       
       {/* Back button for easy navigation */}
       <div className="p-4 border-t">
-        <button
+        <Button
+          variant="ghost"
           onClick={() => navigate(-1)} // Go back to the previous page (ChatListPage)
-          className="flex items-center justify-center w-full text-sm font-semibold text-primary"
+          className="w-full"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Chats
-        </button>
+        </Button>
       </div>
     </div>
   );
