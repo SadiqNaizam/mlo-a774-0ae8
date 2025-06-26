@@ -28,13 +28,13 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
   };
 
   return (
-    <header className="flex items-center p-3 border-b bg-muted sticky top-0 z-10">
+    <header className="flex items-center p-3 border-b bg-background sticky top-0 z-10">
       <div className="flex items-center gap-3">
-        <Link to="/chat-list" aria-label="Back to chat list">
-          <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" asChild>
+          <Link to="/chat-list" aria-label="Back to chat list">
             <ArrowLeft className="h-6 w-6" />
-          </Button>
-        </Link>
+          </Link>
+        </Button>
         <Avatar className="h-10 w-10">
           <AvatarImage src={recipientAvatarUrl} alt={recipientName} className="object-cover" />
           <AvatarFallback>{getInitials(recipientName)}</AvatarFallback>
