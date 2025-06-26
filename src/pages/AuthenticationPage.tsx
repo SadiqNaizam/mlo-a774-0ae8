@@ -52,9 +52,9 @@ const AuthenticationPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-secondary p-4">
       <div className="flex items-center gap-2 mb-6">
-        <MessageCircle className="h-8 w-8 text-green-500" />
+        <MessageCircle className="h-8 w-8 text-primary" />
         <h1 className="text-3xl font-bold">WhatsApp Lite</h1>
       </div>
       
