@@ -1,116 +1,81 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Header from '@/components/layout/Header';
-import ChatListItem from '@/components/ChatListItem';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
+```tsx
+import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Users } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Camera, Search } from 'lucide-react';
+import { toast } from 'sonner';
+import { ChatListItem } from '@/components/ChatListItem';
 
-// Define the interface for a chat item to be used in the sample data array
-interface Chat {
-  id: string;
-  name: string;
-  avatarUrl?: string;
-  lastMessage: string;
-  timestamp: string;
-  unreadCount: number;
-}
+const ChatListPage: React.FC = () => {
+  // Handler for the camera button click.
+  const handleCameraClick = async () => {
+    // Check if the browser supports the MediaDevices API.
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      toast.error("Camera API is not supported by your browser.");
+      return;
+    }
 
-// Sample Data to simulate active chats
-const sampleChats: Chat[] = [
-  {
-    id: 'chat-1',
-    name: 'Alice Johnson',
-    avatarUrl: 'https://placehold.co/100x100/A7C7E7/4F4F4F?text=AJ',
-    lastMessage: 'Sounds great! See you then.',
-    timestamp: '10:42 AM',
-    unreadCount: 2,
-  },
-  {
-    id: 'chat-2',
-    name: 'Bob Williams',
-    avatarUrl: 'https://placehold.co/100x100/F2D2BD/4F4F4F?text=BW',
-    lastMessage: 'Can you send me the file?',
-    timestamp: '10:30 AM',
-    unreadCount: 0,
-  },
-  {
-    id: 'chat-3',
-    name: 'Charlie Brown',
-    lastMessage: 'Okay, I will check it out.',
-    timestamp: 'Yesterday',
-    unreadCount: 0,
-  },
-  {
-    id: 'chat-4',
-    name: 'Diana Prince',
-    avatarUrl: 'https://placehold.co/100x100/D3D3D3/4F4F4F?text=DP',
-    lastMessage: 'Happy Birthday! 🎉',
-    timestamp: 'Yesterday',
-    unreadCount: 5,
-  },
-  {
-    id: 'chat-5',
-    name: 'Ethan Hunt',
-    avatarUrl: 'https://placehold.co/100x100/C1E1C1/4F4F4F?text=EH',
-    lastMessage: 'Mission accomplished.',
-    timestamp: '2 days ago',
-    unreadCount: 0,
-  },
-];
+    try {
+      // Request access to the user's video camera.
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      toast.success("Camera accessed successfully!");
 
-const ChatListPage = () => {
-  console.log('ChatListPage loaded');
-  const [searchTerm, setSearchTerm] = useState('');
+      // Stop the camera track immediately after access to turn the camera light off.
+      // In a real app, this stream would be used in a <video> element.
+      stream.getTracks().forEach(track => track.stop());
+    } catch (err) {
+      console.error("Camera access error:", err);
+      let message = "An error occurred while accessing the camera.";
+      if (err instanceof DOMException) {
+        if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
+          message = "Camera permission denied. Please allow access in browser settings.";
+        } else if (err.name === "NotFoundError" || err.name === "DevicesNotFoundError") {
+          message = "No camera found on this device.";
+        }
+      }
+      toast.error(message);
+    }
+  };
 
-  const filteredChats = sampleChats.filter(chat =>
-    chat.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Dummy data for chat list demonstration.
+  const dummyChats = [
+    { name: 'Alice', lastMessage: 'See you tomorrow!', time: '10:42 AM', avatar: `https://avatar.vercel.sh/alice.png`, unreadCount: 2 },
+    { name: 'Bob', lastMessage: 'Okay, sounds good.', time: '9:30 AM', avatar: `https://avatar.vercel.sh/bob.png` },
+    { name: 'Charlie', lastMessage: 'Can you send me the file?', time: 'Yesterday', avatar: `https://avatar.vercel.sh/charlie.png` }
+  ];
 
   return (
-    <div className="flex flex-col h-screen bg-background text-foreground">
-      <Header page="chat-list" />
+    <div className="flex flex-col h-full bg-background">
+      <header className="p-4 border-b shrink-0">
+        <h1 className="text-2xl font-bold">Chats</h1>
+      </header>
 
-      {/* Search Bar */}
-      <div className="p-3 border-b border-border">
-        <Input
-          type="search"
-          placeholder="Search chats or start a new one"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full bg-muted border-none focus-visible:ring-1 focus-visible:ring-ring"
-        />
+      <div className="p-4 shrink-0">
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="icon" onClick={handleCameraClick} aria-label="Open camera">
+            <Camera className="h-5 w-5" />
+          </Button>
+          <div className="relative w-full">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search chats or contacts..."
+              className="pl-10 w-full"
+            />
+          </div>
+        </div>
       </div>
 
-      <ScrollArea className="flex-1">
-        {filteredChats.length > 0 ? (
-          <div>
-            {filteredChats.map(chat => (
-              <ChatListItem key={chat.id} {...chat} />
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center h-full text-center p-8 text-muted-foreground">
-            <Users className="h-16 w-16 mb-4" />
-            <h2 className="text-xl font-semibold text-foreground">
-              {searchTerm ? 'No Chats Found' : 'Welcome!'}
-            </h2>
-            <p className="mt-2 mb-4 max-w-xs">
-              {searchTerm
-                ? `No chats match your search for "${searchTerm}".`
-                : "You don't have any chats yet. Tap below to start a conversation with your contacts."}
-            </p>
-            {!searchTerm && (
-              <Button asChild>
-                <Link to="/new-chat">Start New Chat</Link>
-              </Button>
-            )}
-          </div>
-        )}
-      </ScrollArea>
+      <div className="flex-grow overflow-y-auto">
+        <div className="flex flex-col">
+          {dummyChats.map(chat => (
+            <ChatListItem key={chat.name} {...chat} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default ChatListPage;
+```
