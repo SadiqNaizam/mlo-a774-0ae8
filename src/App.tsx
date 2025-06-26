@@ -1,42 +1,29 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+```tsx
+import { Toaster } from "@/components/ui/sonner";
+import ChatListPage from "@/pages/ChatListPage";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-
-import AuthenticationPage from "./pages/AuthenticationPage";
-import ChatListPage from "./pages/ChatListPage";
-import ChatPage from "./pages/ChatPage";
-import NewChatPage from "./pages/NewChatPage";
-import SettingsPage from "./pages/SettingsPage";
-import NotFound from "./pages/NotFound";
-
-const queryClient = new QueryClient();
-
-
-const App = () => (
-<QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-    <Toaster />
-    <Sonner />
-    <BrowserRouter>
+function App() {
+  return (
+    // The main container for the app, ensuring it takes up the full screen.
+    <main className="h-screen w-screen bg-background text-foreground">
+      <Router>
         <Routes>
-
-
-          <Route path="/" element={<AuthenticationPage />} />
-          <Route path="/chat" element={<ChatPage />} />
-          <Route path="/chat-list" element={<ChatListPage />} />
-          <Route path="/new-chat" element={<NewChatPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          {/* catch-all */}
-          <Route path="*" element={<NotFound />} />
-
-
+          <Route path="/chats" element={<ChatListPage />} />
+          {/* For this demonstration, we'll redirect the root path to the chats page. */}
+          <Route path="*" element={<Navigate to="/chats" />} />
         </Routes>
-    </BrowserRouter>
-    </TooltipProvider>
-</QueryClientProvider>
-);
+      </Router>
+      {/* The Toaster component is added here to handle all toast notifications globally. */}
+      <Toaster />
+    </main>
+  );
+}
 
 export default App;
+```
