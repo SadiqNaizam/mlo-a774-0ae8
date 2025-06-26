@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import ChatHeader from '@/components/ChatHeader';
 import MessageBubble, { MessageBubbleProps } from '@/components/MessageBubble';
 import MessageInputBar from '@/components/MessageInputBar';
@@ -37,6 +38,20 @@ const ChatPage = () => {
   console.log('ChatPage loaded');
   const [messages, setMessages] = useState<MessageBubbleProps[]>(initialMessages);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+
+  // state can be { chatId, contactName, contactAvatar } from ChatListItem
+  // or { contact: { id, name, avatarUrl } } from NewChatPage
+  const {
+    contactName,
+    contactAvatar,
+    contact,
+  } = location.state || {};
+
+  const recipientName = contactName || contact?.name || 'Select a Chat';
+  const recipientAvatarUrl = contactAvatar || contact?.avatarUrl || '';
+  const onlineStatus = 'Online'; // This is a placeholder
+
 
   // Scroll to the bottom of the chat on new messages
   useEffect(() => {
@@ -60,11 +75,11 @@ const ChatPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-secondary">
+    <div className="flex flex-col h-screen bg-muted">
       <ChatHeader
-        recipientName="Jane Doe"
-        recipientAvatarUrl="https://i.pravatar.cc/150?u=jane_doe"
-        onlineStatus="Online"
+        recipientName={recipientName}
+        recipientAvatarUrl={recipientAvatarUrl}
+        onlineStatus={onlineStatus}
       />
 
       <main className="flex-1 overflow-hidden">
@@ -79,7 +94,7 @@ const ChatPage = () => {
                 isOutgoing={msg.isOutgoing}
                 status={msg.status}
               />
-            ))}\
+            ))}
           </div>
         </ScrollArea>
       </main>
