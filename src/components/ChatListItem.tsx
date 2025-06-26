@@ -37,7 +37,7 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
       state={{ chatId: id, contactName: name, contactAvatar: avatarUrl }} // Pass contact info to the chat page
       className={cn(
         "flex items-center p-3 space-x-4 w-full text-left transition-colors duration-150",
-        "hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700"
+        "hover:bg-muted border-b border-border"
       )}
     >
       {/* Avatar */}
@@ -50,19 +50,19 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
 
       {/* Name and Last Message */}
       <div className="flex-1 min-w-0">
-        <p className="font-semibold truncate text-gray-900 dark:text-gray-100">{name}</p>
-        <p className="text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
+        <p className="font-semibold truncate text-foreground">{name}</p>
+        <p className="text-sm text-muted-foreground truncate mt-1">
           {lastMessage}
         </p>
       </div>
 
       {/* Timestamp and Unread Badge */}
       <div className="flex flex-col items-end space-y-2 self-start flex-shrink-0 ml-2">
-        <p className="text-xs text-green-600 dark:text-green-500 font-medium whitespace-nowrap">
+        <p className="text-xs text-primary font-medium whitespace-nowrap">
           {timestamp}
         </p>
         {unreadCount > 0 ? (
-          <Badge className="bg-green-500 hover:bg-green-600 text-white rounded-full h-6 w-6 flex items-center justify-center p-0 text-xs">
+          <Badge className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center p-0 text-xs">
             {unreadCount}
           </Badge>
         ) : (
